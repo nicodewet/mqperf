@@ -4,17 +4,24 @@ A benchmark of message queues with data replication and at-least-once delivery g
 
 # Setting up the environment
 
-Message queues and test servers are automatically provisioned using Ansible on AWS. You will need to have the
-`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` present in the environment for things to work properly, as well
+Message queues and test servers are automatically provisioned using Ansible on AWS. 
+
+**IMPORTANT**: You will need to have the
+`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` present in the environment (i.e. as environment variables) for things to work properly, as well
 as Ansible and Boto installed.
+
+In order to get the cited environment variables set, modify ansible/env_hack.sh (see the script, if its not clear, put your credentials in there).
+Now run:
+
+* ./env_hack.sh
 
 Metrics are gathered using Prometheus and visualized using Grafana.
 
 Here are the steps needed to test Kafka (other queues are similar). Open the `ansible` directory in the console and:
 
-* provision a kafka cluster by running `ansible-playbook install_and_setup_kafka.yml`. Note to change the size of the
+* provision a kafka cluster by running `ansible-playbook -v install_and_setup_kafka.yml`. Note to change the size of the
 instance to the desired one.
-* provision a number of sender and receiver nodes using `ansible-playbook provision_mqperf_nodes.yml`. Adjust the
+* provision a number of sender and receiver nodes using `ansible-playbook -v provision_mqperf_nodes.yml`. Adjust the
 number and size of nodes depending on the test you want to run. Keep in mind that after each code change, you'll need
 to remove the fat-jars from the `target/scala-2.11` directory and re-run `provision_mqperf_nodes.yml`.
 * provision the prometheus/grafana server by running `ansible-playbook install_and_setup_prometheus.yml`. This must be

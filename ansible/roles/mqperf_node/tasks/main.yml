@@ -49,6 +49,9 @@
     name: boto3
     extra_args: --ignore-installed
 
+- name: debug
+  debug: msg="key {{ aws_access }} secret {{ aws_secret }}"
+
 - name: Copy deps artifact from S3
   s3:
     bucket: "{{ s3_bucket }}"
