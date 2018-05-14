@@ -205,7 +205,7 @@
   replace:
     path: /opt/apache-artemis-2.2.0-broker/etc/artemis.profile
     regexp: 'Xmx2G'
-    replace: 'Xmx16G'
+    replace: 'Xmx4G'
     backup: yes
 
 - name: Start artemis
